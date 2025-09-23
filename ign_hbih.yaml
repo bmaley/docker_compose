@@ -19,7 +19,7 @@ services:
       - IGNITION_EDITION=standard
       - TZ=America/New_York
     command: >
-      -n kb_ign_ign
+      -n ign_gw
       -m 1024
       --
       wrapper.java.initmemory=512
