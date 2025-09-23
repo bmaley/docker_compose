@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  # Ignition Gateway
+  ign_gateway:
+    image: inductiveautomation/ignition:latest
+    ports:
+      - 8188:8088
+      - 8143:8043
+      - 62641:62541
+      - 1983:1883
+      - 45280:45280
+    volumes:
+      - kb_ign_gwdata:/usr/local/bin/ignition/data
+    environment:
+      - ACCEPT_IGNITION_EULA=Y
+      - GATEWAY_ADMIN_USERNAME=Maley
+      - GATEWAY_ADMIN_PASSWORD=password
+      - IGNITION_EDITION=standard
+      - TZ=America/New_York
+    command: >
+      -n kb_ign_ign
+      -m 1024
+      --
+      wrapper.java.initmemory=512
+      -Dignition.allowunsignedmodules=true
+    networks:
+      - kbnet
+  
+  # Intelligence Hub
+  hb_ih:
+    image: highbyte:4.2.0
+    ports:
+      - 46245:45245
+      - 1895:1885
+      - 48885:8885
+    volumes:
+      - kb_ign_hbappData:/usr/local/highbyte/appData
+    networks:
+      - kbnet
+ 
+volumes:
+  kb_ign_gwdata:
+  kb_ign_hbappData:
+ 
+networks:
+   kbnet:
