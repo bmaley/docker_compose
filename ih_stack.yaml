@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  # Intelligence Hub - site1
+  hb-ih-s1:
+    image: highbyte:4.2.1
+    ports:
+      - 45545:45245
+      - 1585:1885
+      - 8585:8585
+    volumes:
+      - s1hbappData:/usr/local/highbyte/appData
+  # Intelligence Hub - site2
+  hb-ih-s2:
+    image: highbyte:4.2.1
+    ports:
+      - 45645:45245
+      - 1685:1885
+      - 8685:8885
+    volumes:
+      - s2hbappData:/usr/local/highbyte/appData
+  # Intelligence Hub - Central Agg
+  hb-ih-entagg:
+    image: highbyte:4.3.0
+    ports:
+      - 45745:45245
+      - 1785:1885
+      - 8785:8885
+    volumes:
+      - entagghbappData:/usr/local/highbyte/appData
+  # Intelligence Hub - Central Config
+  hb-ih-cc:
+    image: highbyte:4.3.0
+    ports:
+      - 45945:45245
+      - 1985:1885
+      - 8985:8885
+    volumes:
+      - cchbappData:/usr/local/highbyte/appData
+ 
+volumes:
+  s1hbappData:
+      driver: local
+  s2hbappData:
+      driver: local
+  entagghbappData:
+      driver: local
+  cchbappData:
+      driver: local
